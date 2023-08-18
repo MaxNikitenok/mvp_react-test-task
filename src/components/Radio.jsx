@@ -1,7 +1,7 @@
 'use client';
 
+import { addRate, notification } from '../store/store';
 import { useRouter } from 'next/navigation';
-import Snackbar from '@material-ui/core/Snackbar';
 import { useState } from 'react';
 
 export const Radio = ({ event }) => {
@@ -12,30 +12,25 @@ export const Radio = ({ event }) => {
     setValue(e.target.value);
   };
 
-  const [state, setState] = useState({
-    open: false,
-    vertical: 'top',
-    horizontal: 'right',
-  });
-
-  const { vertical, horizontal, open } = state;
-
-  const handleClick = () => () => {
-    setState({ open: true, vertical: 'top', horizontal: 'center' });
-    push('/');
+  const newRate = {
+    id: Math.random(),
+    event: event.title,
+    betOn: value,
   };
 
-  const handleClose = () => {
-    setState({ ...state, open: false });
+  const handleClick = () => {
+    addRate(newRate);
+    notification.push(newRate);
+    push('/');
   };
 
   return (
     <div>
-      <label htmlFor="hosts">на победу хозяев</label>
+      <label htmlFor="hosts">{`на победу хозяев (${event.hosts})`}</label>
       <input
         type="radio"
-        name="radio"
         id="hosts"
+        name="radio"
         value="на победу хозяев"
         checked={value == 'на победу хозяев' ? true : false}
         onChange={changeValue}
@@ -49,7 +44,7 @@ export const Radio = ({ event }) => {
         checked={value == 'на ничью' ? true : false}
         onChange={changeValue}
       />
-      <label htmlFor="guests">на победу гостей</label>
+      <label htmlFor="guests">{`на победу гостей (${event.guests})`}</label>
       <input
         type="radio"
         name="radio"
@@ -58,16 +53,9 @@ export const Radio = ({ event }) => {
         checked={value == 'на победу гостей' ? true : false}
         onChange={changeValue}
       />
-      <button onClick={handleClick()} disabled={!value}>
+      <button onClick={handleClick} disabled={!value}>
         сделать ставку
       </button>
-      <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={open}
-        onClose={handleClose}
-        message={`Спасибо ставка в матче ${event.hosts} - ${event.guests} ${value} сделана`}
-        key={vertical + horizontal}
-      />
     </div>
   );
 };

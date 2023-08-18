@@ -1,10 +1,13 @@
+'use client';
+
 import styles from './page.module.css';
 import { Event } from '../components/Event';
-import { data } from '../data/data';
+import { data, getRates, notification } from '../store/store';
 import moment from 'moment/moment';
 import 'moment/locale/ru';
+import { useEffect, useState } from 'react';
 
-moment.locale('ru')
+moment.locale('ru');
 
 const now = moment();
 
@@ -17,64 +20,95 @@ const upcomingEvents = data.filter((event) => {
 });
 
 export default function Home() {
+  const [rateNotification, setRateNotification] = useState(null);
+
+  const hideRateNotification = () => {
+    setRateNotification(null);
+  };
+
+  useEffect(() => {
+    if (rateNotification === null) {
+      setRateNotification(notification.at(0));
+      notification.length = 0;
+      setTimeout(hideRateNotification, 5000);
+    }
+  }, [rateNotification]);
+
   return (
     <main className={styles.main}>
-      <div classNam={styles.currentEvents}>
-        <div>Текущие</div>
-        <div className={styles.currentEvents__football}>
-          <h4>ФУТБОЛ</h4>
-          <ul>
-            {currentEvents.map((item) => {
-              if (item.type === 'football')
-                return (
-                  <li key={item.id}>
-                    <Event item={item} />
-                  </li>
-                );
-            })}
-          </ul>
-        </div>
-        <div className={styles.currentEvents__hockey}>
-          <h4>ХОКЕЙ</h4>
-          <ul>
-            {currentEvents.map((item) => {
-              if (item.type === 'hockey')
-                return (
-                  <li key={item.id}>
-                    <Event item={item} />
-                  </li>
-                );
-            })}
-          </ul>
-        </div>
+      <div
+        className={
+          rateNotification ? styles.notificationOn : styles.notificationOff
+        }
+      >
+        {rateNotification && (
+          <div>
+            Спасибо, ваша ставка в матче{' '}
+            <b>
+              {rateNotification.event} {rateNotification.betOn}
+            </b>{' '}
+            принята
+          </div>
+        )}
       </div>
-      <div classNam={styles.upcomingEvents}>
-      <div>Предстоящие</div>
-        <div className={styles.upcomingEvents__football}>
-          <h4>ФУТБОЛ</h4>
-          <ul>
-            {upcomingEvents.map((item) => {
-              if (item.type === 'football')
-                return (
-                  <li key={item.id}>
-                    <Event item={item} />
-                  </li>
-                );
-            })}
-          </ul>
+      <div className={styles.events}>
+        <div className={styles.currentEvents}>
+          <div className={styles.events__title}>Текущие</div>
+          <div className={styles.currentEvents__football}>
+            <h4 className={styles.title}>ФУТБОЛ</h4>
+            <ul className={styles.eventsItems}>
+              {currentEvents.map((item) => {
+                if (item.type === 'football')
+                  return (
+                    <li className={styles.eventsItem} key={item.id}>
+                      <Event item={item} />
+                    </li>
+                  );
+              })}
+            </ul>
+          </div>
+          <div className={styles.currentEvents__hockey}>
+            <h4 className={styles.title}>ХОКЕЙ</h4>
+            <ul className={styles.eventsItems}>
+              {currentEvents.map((item) => {
+                if (item.type === 'hockey')
+                  return (
+                    <li className={styles.eventsItem} key={item.id}>
+                      <Event item={item} />
+                    </li>
+                  );
+              })}
+            </ul>
+          </div>
         </div>
-        <div className={styles.upcomingEvents__hockey}>
-          <h4>ХОКЕЙ</h4>
-          <ul>
-            {upcomingEvents.map((item) => {
-              if (item.type === 'hockey')
-                return (
-                  <li key={item.id}>
-                    <Event item={item} />
-                  </li>
-                );
-            })}
-          </ul>
+        <div className={styles.upcomingEvents}>
+          <div className={styles.events__title}>Предстоящие</div>
+          <div className={styles.upcomingEvents__football}>
+            <h4 className={styles.title}>ФУТБОЛ</h4>
+            <ul className={styles.eventsItems}>
+              {upcomingEvents.map((item) => {
+                if (item.type === 'football')
+                  return (
+                    <li className={styles.eventsItem} key={item.id}>
+                      <Event item={item} />
+                    </li>
+                  );
+              })}
+            </ul>
+          </div>
+          <div className={styles.upcomingEvents__hockey}>
+            <h4 className={styles.title}>ХОКЕЙ</h4>
+            <ul className={styles.eventsItems}>
+              {upcomingEvents.map((item) => {
+                if (item.type === 'hockey')
+                  return (
+                    <li className={styles.eventsItem} key={item.id}>
+                      <Event item={item} />
+                    </li>
+                  );
+              })}
+            </ul>
+          </div>
         </div>
       </div>
     </main>

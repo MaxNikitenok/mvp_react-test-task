@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import styles from './page.module.css';
-import { data } from '../../data/data';
+import { data } from '../../store/store';
 import { Radio } from '../../components/Radio';
 
 export default function EventDetails({ params }) {
   const eventObj = data.find((event) => {
     return event.id == params.id;
   });
+
   return (
     <>
       <div className={styles.details}>{eventObj.title}</div>

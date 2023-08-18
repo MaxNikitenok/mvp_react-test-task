@@ -1,0 +1,10 @@
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #252525;
+  color: #c0c0c0;
+  height: 100px;
+}
+

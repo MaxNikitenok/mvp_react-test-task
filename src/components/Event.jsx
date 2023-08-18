@@ -5,9 +5,9 @@ export const Event = ({ item }) => {
   return (
     <Link href={`/${item.id}`}>
     <div className={styles.event}>
-      <div className={styles.event__title}>{`${item.hosts} - ${item.guests}`}</div>
-      <div className={styles.event__date}>{item.date}</div>
-      <div className={styles.event__time}>{item.time}</div>
+      <span className={styles.event__title}>{`${item.hosts} - ${item.guests}`}</span>
+      <span className={styles.event__date}>{` ${item.date}`}</span>
+      <span className={styles.event__time}>{` ${item.time}`}</span>
     </div>
     </Link>
   );
