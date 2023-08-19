@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styles from './page.module.css';
 import { data } from '../../store/store';
-import { Radio } from '../../components/Radio';
+import { Radio } from '../../components/Radio/Radio';
 
 export default function EventDetails({ params }) {
   const eventObj = data.find((event) => {
@@ -9,14 +9,16 @@ export default function EventDetails({ params }) {
   });
 
   return (
-    <>
-      <div className={styles.details}>{eventObj.title}</div>
-      <div className={styles.details}>{eventObj.date}</div>
-      <div className={styles.details}>{eventObj.time}</div>
-      <div className={styles.details}>Хозяева: {eventObj.hosts}</div>
-      <div className={styles.details}>Гости: {eventObj.guests}</div>
+    <div className={styles.details}>
+      <div className={styles.details__title}>{eventObj.title}</div>
+      <div className={styles.details__date}>{eventObj.date}</div>
+      <div className={styles.details__time}>{eventObj.time}</div>
+      <div className={styles.details__hosts}>Хозяева: {eventObj.hosts}</div>
+      <div className={styles.details__guests}>Гости: {eventObj.guests}</div>
       <Radio event={eventObj} />
-      <Link href="/">Home</Link>
-    </>
+      <Link className={styles.backHome} href="/">
+        Вернутся на главную
+      </Link>
+    </div>
   );
 }

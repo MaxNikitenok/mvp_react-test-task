@@ -1,8 +1,12 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
+import { Tektur } from 'next/font/google';
 import styles from './layout.module.css';
+import Link from 'next/link';
 
-const inter = Inter({ subsets: ['latin'] });
+const tektur = Tektur({
+  weight: '400',
+  subsets: ['latin'],
+});
 
 export const metadata = {
   title: 'Create Next App',
@@ -12,10 +16,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={tektur.className}>
         <header className={styles.header}>
           <div className={styles.title}>
-            <h1>BeTBeT</h1>
+            <Link href={`/`}>
+              <h1 className={styles.logo}>BeTBeT</h1>
+            </Link>
             <h2>Ставки на спорт</h2>
             <h6>почти легально</h6>
           </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './page.module.css';
-import { Event } from '../components/Event';
+import { Event } from '../components/Event/Event';
 import { data, getRates, notification } from '../store/store';
 import moment from 'moment/moment';
 import 'moment/locale/ru';
@@ -21,16 +21,26 @@ const upcomingEvents = data.filter((event) => {
 
 export default function Home() {
   const [rateNotification, setRateNotification] = useState(null);
+  const [showNotification, setShowNotification] = useState(false);
 
-  const hideRateNotification = () => {
+  const clearRateNotification = () => {
     setRateNotification(null);
+  };
+
+  const hideNotification = () => {
+    setShowNotification(false);
   };
 
   useEffect(() => {
     if (rateNotification === null) {
       setRateNotification(notification.at(0));
       notification.length = 0;
-      setTimeout(hideRateNotification, 5000);
+
+      setTimeout(clearRateNotification, 9000);
+    }
+    if (rateNotification) {
+      setShowNotification(true);
+      setTimeout(hideNotification, 5000);
     }
   }, [rateNotification]);
 
@@ -38,7 +48,7 @@ export default function Home() {
     <main className={styles.main}>
       <div
         className={
-          rateNotification ? styles.notificationOn : styles.notificationOff
+          showNotification ? styles.notificationOn : styles.notificationOff
         }
       >
         {rateNotification && (
