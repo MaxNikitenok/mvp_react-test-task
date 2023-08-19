@@ -28,8 +28,15 @@ export const Radio = ({ event }) => {
   return (
     <>
       <div className={styles.radio}>
-        <label htmlFor="hosts" className={value == 'на победу хозяев' ? styles.activeRadioLabel : styles.radioLabel}>
-          {event.hosts}
+        <label
+          htmlFor="hosts"
+          className={
+            value == 'на победу хозяев'
+              ? styles.activeRadioLabel
+              : styles.radioLabel
+          }
+        >
+          <span>{event.hosts.name}</span> <span className={styles.coefficient}>{event.hosts.coefficient}</span>
         </label>
         <input
           className={styles.radioInput}
@@ -40,8 +47,13 @@ export const Radio = ({ event }) => {
           checked={value == 'на победу хозяев' ? true : false}
           onChange={changeValue}
         />
-        <label htmlFor="draw" className={value == 'на ничью' ? styles.activeRadioLabel : styles.radioLabel}>
-          Ничья
+        <label
+          htmlFor="draw"
+          className={
+            value == 'на ничью' ? styles.activeRadioLabel : styles.radioLabel
+          }
+        >
+          <span>Ничья</span> <span className={styles.coefficient}>{event.draw}</span>
         </label>
         <input
           className={styles.radioInput}
@@ -52,8 +64,15 @@ export const Radio = ({ event }) => {
           checked={value == 'на ничью' ? true : false}
           onChange={changeValue}
         />
-        <label htmlFor="guests" className={value == 'на победу гостей' ? styles.activeRadioLabel : styles.radioLabel}>
-          {event.guests}
+        <label
+          htmlFor="guests"
+          className={
+            value == 'на победу гостей'
+              ? styles.activeRadioLabel
+              : styles.radioLabel
+          }
+        >
+          <span>{event.guests.name}</span> <span className={styles.coefficient}>{event.guests.coefficient}</span>
         </label>
         <input
           className={styles.radioInput}
@@ -65,7 +84,11 @@ export const Radio = ({ event }) => {
           onChange={changeValue}
         />
       </div>
-      <button className={styles.button} onClick={handleClick} disabled={!value}>
+      <button
+        className={value ? styles.button : styles.buttonOff}
+        onClick={handleClick}
+        disabled={!value}
+      >
         сделать ставку
       </button>
     </>

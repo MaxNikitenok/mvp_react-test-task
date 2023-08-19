@@ -7,18 +7,23 @@
 .notificationOff {
   height: 0;
   background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   transition: all 3s;
-  color: #fff;
+  color: #252525;
 }
 
 .notificationOn {
   height: 50px;
   background-color: #21f305;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  padding: 15px 0;
   transition: all 1s;
-  color: #000;
+  color: #252525;
 }
 
 .currentEvents, .upcomingEvents {
@@ -26,13 +31,14 @@
 }
 
 .events__title {
-  font-size: 23px;
-  background-color: #fff;
+  font-size: 27px;
+  background-color: #e0e0e0;
   padding: 10px 0;
 }
 
 .title {
   background-color: #c0c0c0;
+  font-size: 23px;
   padding: 10px 0;
 }
 
@@ -42,6 +48,32 @@
   margin-bottom: 2px;
 }
 
-.eventsItem {
+@media (max-width: 1024px) {
+  .events {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
 
+@media (max-width: 560px) {
+  .events {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .events__title {
+    font-size: 23px;
+  }
+
+  .title {
+    background-color: #c0c0c0;
+    font-size: 20px;
+    padding: 10px 0;
+  }
+
+  .notificationOn {
+    height: 70px;
+  }
 }

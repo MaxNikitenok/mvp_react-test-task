@@ -2,7 +2,7 @@
 
 import styles from './page.module.css';
 import { Event } from '../components/Event/Event';
-import { data, getRates, notification } from '../store/store';
+import { data, notification } from '../store/store';
 import moment from 'moment/moment';
 import 'moment/locale/ru';
 import { useEffect, useState } from 'react';
@@ -11,12 +11,16 @@ moment.locale('ru');
 
 const now = moment();
 
-const currentEvents = data.filter((event) => {
-  return event.date === now.format('DD MMMM');
+const sortedData = data.sort((a, b) => {
+  return moment(a.date, ["DD-MM-YYYY"]) - moment(b.date, ["DD-MM-YYYY"]);
 });
 
-const upcomingEvents = data.filter((event) => {
-  return event.date > now.format('DD MMMM');
+const currentEvents = sortedData.filter((event) => {
+  return event.date === now.format('DD-MM-YYYY');
+});
+
+const upcomingEvents = sortedData.filter((event) => {
+  return event.date > now.format('DD-MM-YYYY');
 });
 
 export default function Home() {
@@ -36,7 +40,7 @@ export default function Home() {
       setRateNotification(notification.at(0));
       notification.length = 0;
 
-      setTimeout(clearRateNotification, 9000);
+      setTimeout(clearRateNotification, 8000);
     }
     if (rateNotification) {
       setShowNotification(true);

@@ -13,8 +13,8 @@ export default function EventDetails({ params }) {
       <div className={styles.details__title}>{eventObj.title}</div>
       <div className={styles.details__date}>{eventObj.date}</div>
       <div className={styles.details__time}>{eventObj.time}</div>
-      <div className={styles.details__hosts}>Хозяева: {eventObj.hosts}</div>
-      <div className={styles.details__guests}>Гости: {eventObj.guests}</div>
+      <div className={styles.details__hosts}>Хозяева: {eventObj.hosts.name}</div>
+      <div className={styles.details__guests}>Гости: {eventObj.guests.name}</div>
       <Radio event={eventObj} />
       <Link className={styles.backHome} href="/">
         Вернутся на главную

@@ -5,3 +5,18 @@
   border-right: 1px solid #c0c0c0;
   padding: 20px 0;
 }
+
+.event__title {
+  font-size: 21px;
+}
+
+@media (max-width: 560px) {
+  .event__title {
+    font-size: 17px;
+  }
+
+  .event__date, .event__time {
+    font-size: 15px;
+  }
+
+}
